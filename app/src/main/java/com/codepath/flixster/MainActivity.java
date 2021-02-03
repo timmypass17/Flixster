@@ -21,8 +21,8 @@ import java.util.List;
 
 import okhttp3.Headers;
 
+// explnation of recycler view https://stackoverflow.com/questions/37523308/when-onbindviewholder-is-called-and-how-it-works
 public class MainActivity extends AppCompatActivity {
-
 
     public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
     // Tag is to print out data easily so we can see
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         // Set a Layout Manager on the recycler view (lets recycler view know how to arrange diff views onto screen)
         rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
-
         AsyncHttpClient client = new AsyncHttpClient();
         //Get request, this API uses JSON, is asynchronous so it might fail
         client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, "Results: " + results.toString());
                     movies.addAll(Movie.fromJsonArray(results));
-                    movieAdapter.notifyDataSetChanged();
+                    movieAdapter.notifyDataSetChanged(); // if you add/del something you gotta notify adapter
                     Log.i(TAG, "Movies: " + movies.size());
                 } catch (JSONException e) {
                     Log.e(TAG, "Hit json exception", e);

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codepath.flixster">
-
-    <!-- Declare that you are using internet. When user downloads app,
+    <!--
+    Declare that you are using internet. When user downloads app,
     android needs to know what permissions this app requires for full ussage.
-    (e.g. Internet is common one, need to make network request to MovieDatabase API) -->
+    (e.g. Internet is common one, need to make network request to MovieDatabase API)
+    -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Flixster">
+        <activity android:name=".DetailActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
