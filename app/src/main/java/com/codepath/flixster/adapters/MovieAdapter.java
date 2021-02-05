@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.codepath.flixster.DetailActivity;
 import com.codepath.flixster.R;
 import com.codepath.flixster.models.Movie;
@@ -91,15 +92,30 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
             String imageUrl;
+
             // if phone is in landscape
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 // then imageUrl = backdrop image
                 imageUrl = movie.getBackdropPath();
+
+                // binding image
+                Glide.with(context)
+                        .load(imageUrl)
+                        .placeholder(R.drawable.movie_placeholder)
+                        .override(960)
+                        .into(ivPoster);
             } else {
                 // else imageUrl = poster image
                 imageUrl = movie.getPosterPath();
+
+                // binding image
+                Glide.with(context)
+                        .load(imageUrl)
+                        .placeholder(R.drawable.movie_placeholder)
+                        .override(490)
+                        .into(ivPoster);
             }
-            Glide.with(context).load(imageUrl).into(ivPoster);
+
 
             // 1. Register click listener on the whole row
             container.setOnClickListener(new View.OnClickListener() {

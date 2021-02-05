@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="orange">#F49249</color>
+    <color name="movie_background">#1E1E1E</color>
+    <color name="movie_title">#FFFFFF</color>
+    <color name="movie_overview">#aaaaaa</color>
+
+    <!-- Define your colors in `res/values/colors.xml` -->
+    <color name="simple_yellow">#ECD078</color>
+    <color name="primary_blue">#53777A</color>
+
+
+</resources>

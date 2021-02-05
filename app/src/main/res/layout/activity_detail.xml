@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailActivity"
-    android:orientation="vertical">
+    android:background="@color/movie_background"
+    android:orientation="vertical"
+    tools:context=".DetailActivity">
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/player"
@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textColor="@color/movie_title"
         android:textSize="30sp"
         tools:text="Wonder Woman 1984" />
 
@@ -28,12 +29,17 @@
         android:layout_height="wrap_content"
         android:isIndicator="true"
         android:numStars="10"
-        android:rating="8.5" />
+        android:progressBackgroundTint="@color/white"
+        android:progressTint="@android:color/holo_orange_light"
+        android:rating="8.5"
+        android:secondaryProgressTint="@android:color/holo_orange_light"
+        android:visibility="visible" />
 
     <TextView
         android:id="@+id/tvOverview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textColor="@color/movie_overview"
         tools:text="Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah." />
 </LinearLayout>
