@@ -1,5 +1,6 @@
 package com.codepath.flixster.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -13,11 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.codepath.flixster.DetailActivity;
+import com.codepath.flixster.MainActivity;
 import com.codepath.flixster.R;
 import com.codepath.flixster.models.Movie;
 
@@ -87,7 +91,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             container = itemView.findViewById(R.id.container);
         }
 
-        // Bind (Adding) in actual data to show to screen
+        // Bind (Adding) in actual data to show to screen. combines data & views
         public void bind(Movie movie) {
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
@@ -95,36 +99,37 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
             // if phone is in landscape
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                // then imageUrl = backdrop image
+                // Use Backdrop image
                 imageUrl = movie.getBackdropPath();
-
                 // binding image
                 Glide.with(context)
                         .load(imageUrl)
                         .placeholder(R.drawable.movie_placeholder)
-                        .override(960)
                         .into(ivPoster);
             } else {
-                // else imageUrl = poster image
+                // Use poster image
                 imageUrl = movie.getPosterPath();
-
                 // binding image
-                Glide.with(context)
+                Glide.with(ivPoster)
                         .load(imageUrl)
                         .placeholder(R.drawable.movie_placeholder)
-                        .override(490)
+                        .error(R.drawable.movie_placeholder)
                         .into(ivPoster);
             }
-
+            // NOTE: Fixed placeholder size by hardcoding ImageView (height='wrapcontent' ---> 180dp).
+            //       The placeholder image was small because wrapcontent shrunk to image's original size
 
             // 1. Register click listener on the whole row
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // 2. Navigate to a new activity on tap
+                    // 2. Navigate to a new activity on tap (context ---> detail page)
                     Intent i = new Intent(context, DetailActivity.class);
                     i.putExtra("movie", Parcels.wrap(movie)); // pass in movie object, so we dont have to pass in every indivual thing
-                    context.startActivity(i);
+                    // (optional) Transition - context -->
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation((Activity) context, (ImageView) ivPoster, "profile");
+                    context.startActivity(i, options.toBundle());
                 }
             });
         }
