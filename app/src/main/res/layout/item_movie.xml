@@ -7,17 +7,29 @@
     android:layout_height="wrap_content"
     android:background="@color/movie_background">
 
-    <ImageView
-        android:id="@+id/ivPoster"
-        android:layout_width="120dp"
-        android:layout_height="180dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        tools:srcCompat="@tools:sample/avatars"
-        android:transitionName="profile"
-        />
+    <FrameLayout
+        android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ivPoster"
+            android:layout_width="120dp"
+            android:layout_height="180dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:transitionName="profile"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/ivPlay"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            app:srcCompat="@android:drawable/ic_media_play" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tvTitle"
@@ -28,7 +40,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="18dp"
-        android:layout_toEndOf="@+id/ivPoster"
+        android:layout_toEndOf="@+id/thumbnail"
         android:letterSpacing="0.03"
         android:textColor="@color/movie_title"
         android:textSize="24sp"
@@ -43,7 +55,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="18dp"
-        android:layout_toEndOf="@+id/ivPoster"
+        android:layout_toEndOf="@+id/thumbnail"
         android:textColor="@color/movie_overview"
         tools:text="Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah." />
 </RelativeLayout>

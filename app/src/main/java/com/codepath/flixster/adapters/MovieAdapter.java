@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,7 +64,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         // Get the movie at the passed in position
         Movie movie = movies.get(position);
         // Bind the movie data into the ViewHolder
-        holder.bind(movie);
+        holder.bind(movie, position);
     }
 
     // Returns total count of items in the list
@@ -80,6 +81,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+        ImageView ivPlay;
 
         // ViewHolder Constructor
         public ViewHolder(@NonNull View itemView) {
@@ -89,13 +91,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
             container = itemView.findViewById(R.id.container);
+            ivPlay = itemView.findViewById(R.id.ivPlay);
         }
 
         // Bind (Adding) in actual data to show to screen. combines data & views
-        public void bind(Movie movie) {
+        public void bind(Movie movie, int position) {
+            Log.d("Movie popularity: ", String.valueOf(movie.getRating()) + ' ' + movie.getTitle() + " Position: " + position);
+
             tvTitle.setText(movie.getTitle());
             tvOverview.setText(movie.getOverview());
             String imageUrl;
+
+            if (!movie.isPopular()) {
+                ivPlay.setImageDrawable(null);
+            }
 
             // if phone is in landscape
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -115,7 +124,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                         .placeholder(R.drawable.movie_placeholder)
                         .error(R.drawable.movie_placeholder)
                         .into(ivPoster);
+
             }
+
             // NOTE: Fixed placeholder size by hardcoding ImageView (height='wrapcontent' ---> 180dp).
             //       The placeholder image was small because wrapcontent shrunk to image's original size
 
@@ -123,6 +134,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Toast toast = Toast.makeText(context, Double.toString(movie.getRating()), Toast.LENGTH_SHORT);
+                    toast.show();
                     // 2. Navigate to a new activity on tap (context ---> detail page)
                     Intent i = new Intent(context, DetailActivity.class);
                     // Parcels - passes data between screens

@@ -17,11 +17,12 @@ public class Movie {
     String title;
     String overview;
     double rating;
+    boolean isPopular;
 
     // empty constructor needed by the Parceler library
     public Movie() {}
 
-    // If any of the shits fail, throw JSON exception. (Same thing as try/excepts)
+    // If any of the things does not not exist/fail, throw JSON exception. (Same thing as try/excepts)
     // Movie object constructor, RUNS WHEN OBJECT IS CREATED!!
     public Movie(JSONObject jsonObject) throws JSONException {
         backdropPath = jsonObject.getString("backdrop_path");
@@ -30,6 +31,14 @@ public class Movie {
         overview = jsonObject.getString("overview");
         rating = jsonObject.getDouble("vote_average");
         movieId = jsonObject.getInt("id");
+
+        if (rating <= 5.0) {
+            isPopular = false;
+        } else {
+            isPopular = true;
+        }
+
+
     }
 
     // Creates & Returns list of Movie Objects. Parsing data we only care about
@@ -67,5 +76,9 @@ public class Movie {
 
     public int getMovieId() {
         return movieId;
+    }
+
+    public boolean isPopular() {
+        return isPopular;
     }
 }
