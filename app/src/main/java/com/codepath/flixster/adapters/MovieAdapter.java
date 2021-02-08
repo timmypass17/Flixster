@@ -28,7 +28,7 @@ import com.codepath.flixster.models.Movie;
 import org.parceler.Parcels;
 
 import java.util.List;
-
+// Recall: use Toast to print thing on phone screen (bread pops up from toaster)
 // 1. Define ViewHolder
 // 2. Define Adapters
 
@@ -125,6 +125,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 public void onClick(View view) {
                     // 2. Navigate to a new activity on tap (context ---> detail page)
                     Intent i = new Intent(context, DetailActivity.class);
+                    // Parcels - passes data between screens
                     i.putExtra("movie", Parcels.wrap(movie)); // pass in movie object, so we dont have to pass in every indivual thing
                     // (optional) Transition - context -->
                     ActivityOptionsCompat options = ActivityOptionsCompat.

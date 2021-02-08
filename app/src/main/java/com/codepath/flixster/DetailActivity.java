@@ -82,9 +82,19 @@ public class DetailActivity extends YouTubeBaseActivity {
     private void initializeYoutube(String youtubeKey) {
         youTubePlayerView.initialize(YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
+            // Key may not exist. Make onSuccess, onFailure
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d("Detail Activity", "onInitializationSuccess");
-                youTubePlayer.cueVideo(youtubeKey);
+
+                RatingBar simpleRatingBar = (RatingBar) findViewById(R.id.ratingBar); //initiate rating bar
+                Float ratingNumber = simpleRatingBar.getRating(); // get rating number from a rating bar
+                if (ratingNumber <= 5){ // Movie is not popular (i.e <= 5 ratings)
+                    // Add video, does not play automatically
+                    youTubePlayer.cueVideo(youtubeKey);
+                } else { // Popular movie
+                    // Add video, plays automatically
+                    youTubePlayer.loadVideo(youtubeKey);
+                }
             }
 
             @Override
