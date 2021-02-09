@@ -29,6 +29,8 @@ import com.codepath.flixster.models.Movie;
 import org.parceler.Parcels;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 // Recall: use Toast to print thing on phone screen (bread pops up from toaster)
 // 1. Define ViewHolder
 // 2. Define Adapters
@@ -94,7 +96,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             ivPlay = itemView.findViewById(R.id.ivPlay);
         }
 
-        // Bind (Adding) in actual data to show to screen. combines data & views
+        // Bind (Adding) in actual data to show to screen. combines data & viewHolders
         public void bind(Movie movie, int position) {
             Log.d("Movie popularity: ", String.valueOf(movie.getRating()) + ' ' + movie.getTitle() + " Position: " + position);
 
@@ -102,9 +104,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvOverview.setText(movie.getOverview());
             String imageUrl;
 
+            // Play Icon
             if (!movie.isPopular()) {
-                ivPlay.setImageDrawable(null);
+                // Hide play icon
+                ivPlay.setVisibility(View.GONE);
+            } else {
+                // Reveal play icon
+                ivPlay.setVisibility(View.VISIBLE);
             }
+
+            // Movie posters
+            int radius = 10; // corner radius, higher value = more rounded
+            int margin = 10; // crop margin, set to 0 for corners with no crop
 
             // if phone is in landscape
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -113,6 +124,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 // binding image
                 Glide.with(context)
                         .load(imageUrl)
+                        .transform(new RoundedCornersTransformation(radius, margin))
                         .placeholder(R.drawable.movie_placeholder)
                         .into(ivPoster);
             } else {
@@ -121,6 +133,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 // binding image
                 Glide.with(ivPoster)
                         .load(imageUrl)
+                        .transform(new RoundedCornersTransformation(radius, margin))
                         .placeholder(R.drawable.movie_placeholder)
                         .error(R.drawable.movie_placeholder)
                         .into(ivPoster);
