@@ -147,8 +147,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast toast = Toast.makeText(context, Double.toString(movie.getRating()), Toast.LENGTH_SHORT);
-                    toast.show();
                     // 2. Navigate to a new activity on tap (context ---> detail page)
                     Intent i = new Intent(context, DetailActivity.class);
                     // Parcels - passes data between screens
