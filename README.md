@@ -55,7 +55,7 @@ Describe any challenges encountered while building the app. I ran across an erro
 
 ### App Walkthough GIF
 
-<img src="https://github.com/timmypass17/Flixster/blob/main/walkthrough.gif" width=650><br>
+<img src="https://github.com/timmypass17/Flixster/blob/main/walkthrough.gif"><br>
 
 ### Notes
 Describe any challenges encountered while building the app.
